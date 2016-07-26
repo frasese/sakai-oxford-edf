@@ -83,4 +83,10 @@
              init-method="init">
          <property name="serverConfigurationService" ref="org.sakaiproject.component.api.ServerConfigurationService"/>
      </bean>
+     
+     <bean id="org.sakaiproject.util.api.ValueEncryptionService"
+             class="org.sakaiproject.util.impl.ValueEncryptionServiceImpl"
+             init-method="init">
+             <property name="key"><null/></property>
+     </bean>
 </beans>

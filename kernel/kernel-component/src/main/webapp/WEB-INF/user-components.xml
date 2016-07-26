@@ -116,4 +116,24 @@
 		<property name="memoryService" ref="org.sakaiproject.memory.api.MemoryService" />
 	</bean>
 
+	<bean id="org.sakaiproject.user.api.CandidateDetailProvider"
+		  class="org.sakaiproject.user.impl.ChainedDetailProvider">
+		<property name="providers">
+			<list>
+				<bean id="org.sakaiproject.user.api.CandidateDetailProvider" class="org.sakaiproject.user.impl.CandidateDetailProviderImpl" init-method="init">
+					<property name="serverConfigurationService"> <ref bean="org.sakaiproject.component.api.ServerConfigurationService"/> </property>
+					<property name="siteService"> <ref bean="org.sakaiproject.site.api.SiteService"/> </property>
+					<property name="toolManager"> <ref bean="org.sakaiproject.tool.api.ToolManager"/> </property>
+					<property name="valueEncryptionService"> <ref bean="org.sakaiproject.util.api.ValueEncryptionService"/> </property>
+				</bean>
+
+				<bean id="org.sakaiproject.user.api.CandidateDetailProvider" class="org.sakaiproject.user.impl.FallbackDetailProvider" init-method="init">
+					<property name="serverConfigurationService"> <ref bean="org.sakaiproject.component.api.ServerConfigurationService"/> </property>
+					<property name="siteService"> <ref bean="org.sakaiproject.site.api.SiteService"/> </property>
+					<property name="toolManager"> <ref bean="org.sakaiproject.tool.api.ToolManager"/> </property>
+					<property name="valueEncryptionService"> <ref bean="org.sakaiproject.util.api.ValueEncryptionService"/> </property>
+				</bean>
+			</list>
+		</property>
+	</bean>
 </beans>
